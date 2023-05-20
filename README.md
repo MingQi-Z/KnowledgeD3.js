@@ -49,7 +49,8 @@ call() 把
 ![image](https://github.com/MingQi-Z/KnowledgeD3.js/assets/77725176/34e38c3e-a993-4a19-b679-98386c6b0413)
 
 ### 修改坐标的文字
-.tick表示每一个刻度，用select可以选择
+.tick表示每一个刻度，用select可以选择,类名
+tickSize()坐标轴的刻度线
 ```js
 d3.selectAll('.tick text').attr("font-size","2em")
 ```
