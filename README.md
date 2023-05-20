@@ -31,4 +31,29 @@ d3.scaleLinear 和 d3.scaleBand得到的返回值本质上是函数
 domain()和range()可以理解为配置这个函数的过程
 const xScale=d3.scaleLinear().domain([0,10]).range([0,innerWidth]);
 ```
+domain()数据范围，range()画布范围
+d3.max(data,function)	 取最大值		data:数据本身	function:对每条数据的操作
+data.map()数据列表，map(回调函数)
+
+### 坐标轴
+```js
+const yAxis = d3.axisLeft(d3.scaleBand())	y轴
+const xAxis = de.axisBottom(比例尺)			x轴
+const g=svg.append('g')
+g.append('g').call(yAxis);
+g.append('g').call(xAxis);
+call() 把
+```
+
+### 画布
+![image](https://github.com/MingQi-Z/KnowledgeD3.js/assets/77725176/34e38c3e-a993-4a19-b679-98386c6b0413)
+
+### 修改坐标的文字
+.tick表示每一个刻度，用select可以选择
+```js
+d3.selectAll('.tick text').attr("font-size","2em")
+```
+
+### 文字居中：文字锚
+![image](https://github.com/MingQi-Z/KnowledgeD3.js/assets/77725176/9bb85736-ca3d-419c-9f0a-56384b178946)
 
