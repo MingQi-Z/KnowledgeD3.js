@@ -9,7 +9,7 @@
 import flask
 from flask_cors import CORS
 from flask import Flask
-
+ 
 app=Flask(__name__)
 app.config['TEMPLATES_QUTO_RELOAD'] = True
 CORS(app)
@@ -38,10 +38,12 @@ data.map()数据列表，map(回调函数)
 ### 坐标轴
 ```js
 const yAxis = d3.axisLeft(d3.scaleBand())	y轴
-const xAxis = de.axisBottom(比例尺)			x轴
+const xAxis = de.axisBottom(比例尺)			x轴//渲染
 const g=svg.append('g')
-g.append('g').call(yAxis);
-g.append('g').call(xAxis);
+g.append('g').call(yAxis);//显示出x,y轴
+
+g.append("g").call(xAxis)//默认再上方
+.attr('transform',`translate(0,${innerHeight})`);//将坐标移至下方
 call() 把
 ```
 
@@ -58,3 +60,14 @@ d3.selectAll('.tick text').attr("font-size","2em")
 ### 文字居中：文字锚
 ![image](https://github.com/MingQi-Z/KnowledgeD3.js/assets/77725176/9bb85736-ca3d-419c-9f0a-56384b178946)
 
+### forEach()函数
+```js
+data.forEach(d=>{		Array.forEach(d为每一个元素）
+  g.append("rect")
+  .attr("width",xScale(d.value))
+  .attr("height",yScale.bandwidth())
+  .attr("fill","green")
+  .attr("y",yScale(d.name));
+  console.log("xScale(d.value)"+xScale(d.value))
+})
+```
