@@ -30,6 +30,8 @@ d3.scaleLinear 和 d3.scaleBand得到的返回值本质上是函数
 返回映射的值 range
 domain()和range()可以理解为配置这个函数的过程
 const xScale=d3.scaleLinear().domain([0,10]).range([0,innerWidth]);
+const yScale=d3.scaleBand().domain([0,d3.max(data,d=>d.value)]).range([0,innerHeight])
+.padding(0.1)//y轴中的留白，0.1===》1%
 ```
 domain()数据范围，range()画布范围
 d3.max(data,function)	 取最大值		data:数据本身	function:对每条数据的操作
@@ -64,10 +66,17 @@ d3.selectAll('.tick text').attr("font-size","2em")
 ```js
 data.forEach(d=>{		Array.forEach(d为每一个元素）
   g.append("rect")
-  .attr("width",xScale(d.value))
-  .attr("height",yScale.bandwidth())
+  .attr("width",xScale(d.value))   
+  .attr("height",yScale.bandwidth())  //y轴间隔
   .attr("fill","green")
-  .attr("y",yScale(d.name));
+  .attr("y",yScale(d.name));//y的位置
   console.log("xScale(d.value)"+xScale(d.value))
 })
 ```
+
+### 遇到的问题1
+- +"String"----->number
+- +("String")----->number
+### 遇到的问题2
+attr("width","100px")
+attr("width")---->100px        +"100px"==NAN
