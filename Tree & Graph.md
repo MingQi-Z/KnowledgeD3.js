@@ -220,6 +220,58 @@ simulation = d3.forcesimulation(nodes)
 ![image](https://github.com/MingQi-Z/KnowledgeD3.js/assets/77725176/ae1404e2-0e18-4456-9f8c-b51a92600a74)
 
 
+##### 力导图
+```js
+simulation = d3.forcesimulation(nodes)
+.force("manyBody",d3.forceManyBody().strength(-30))
+.force("center",d3.forceCenter(width/2,height/2))
+.force("link",d3.forceLink(links).strength(0.1).distance(100))
 
+let nodes,simulation,circles,lines,links;
+
+const render_init=function(){
+  //连线和园
+  lines= svg.selectAll('line').data(links).join('line')
+  .attr("stroke",'black')
+  .attr("opacity",0.8)
+  .attr("stroke-width",0.5)
+
+  circles=svg.selectAll('circle').data(nodes).join('circle')
+  .attr("r",5)
+  .attr("fill",'blue')
+
+}
+
+const ticked =function(){
+      lines.attr("x1",d=>d.source.x)
+      .attr("y1",d=>d.source.y)
+      .attr("x2",d=>d.target.x)
+      .attr("y2",d=>d.target.x)
+
+      circles
+      .attr("cx",d=>d.y)
+      .attr("cy",d=>d.y)
+
+}
+
+//读数据
+d3.json('/xx.json').then(data=>{
+  nodes=[]
+  //数据初始化
+  for(let i=0;i<data["#nodes"];i++){
+    nodes.push({'index':i})
+  }
+  console.log(nodes);
+  //图元初始化
+  render_init();
+
+  //力模拟
+  simulation =d3.forcesimulation(nodes)
+  .force("liname",d3.forceManyBody().strength(-30))//万有引力/斥力
+  .force("center",d3.forceCenter(width/2,height/2))//画布的中间
+  .force("link",d3.forceLink(links).strength(0.1).distance(100))
+  .on('tick',ticked)//映射出来
+})
+```
 
 
